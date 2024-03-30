@@ -48,9 +48,7 @@ public class Product {
         this.price = price;
     }
 
-
-
-    // Método de formatação de preço
+   // Método de formatação de preço
     public String formatPrice() {
         return String.format("%.2f", price);
     }
