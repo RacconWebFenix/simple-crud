@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.model;
+package com.raccon.simplecrud.model.user;
 
 public enum UserRole {
     ADMIN("admin"),

@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.model;
+package com.raccon.simplecrud.model.user;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,10 +12,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 
 @Entity(name = "users")
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
     
     @Id
@@ -25,8 +29,11 @@ public class User implements UserDetails {
     private String password;
     private UserRole role;
 
-   
-
+    public User(String email, String password, UserRole role){
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -35,9 +42,7 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
-
-   
-
+  
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
@@ -47,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override

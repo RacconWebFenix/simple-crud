@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.raccon.simplecrud.exception.ResourceNotFoundException;
-import com.raccon.simplecrud.model.Product;
-import com.raccon.simplecrud.repository.ProductRepository;
+import com.raccon.simplecrud.model.product.Product;
+import com.raccon.simplecrud.repository.productRepository.ProductRepository;
 
 
 

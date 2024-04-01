@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.model;
+package com.raccon.simplecrud.model.product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

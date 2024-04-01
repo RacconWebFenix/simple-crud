@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.raccon.simplecrud.repository.UserRepository;
+import com.raccon.simplecrud.repository.userRepository.UserRepository;
 
 @Service
 public class AuthorizationServices implements UserDetailsService {
