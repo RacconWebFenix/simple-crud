@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.infra;
+package com.raccon.simplecrud.Config;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.raccon.simplecrud.repository.userRepository.UserRepository;
+import com.raccon.simplecrud.services.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

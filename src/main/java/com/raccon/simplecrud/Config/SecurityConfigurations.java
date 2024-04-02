@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.infra;
+package com.raccon.simplecrud.Config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

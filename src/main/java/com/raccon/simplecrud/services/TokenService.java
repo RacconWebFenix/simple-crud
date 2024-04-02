@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.infra;
+package com.raccon.simplecrud.services;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

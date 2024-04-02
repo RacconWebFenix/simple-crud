@@ -2,12 +2,12 @@ package com.raccon.simplecrud.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raccon.simplecrud.infra.TokenService;
 import com.raccon.simplecrud.model.user.AuthenticationDTO;
 import com.raccon.simplecrud.model.user.LoginResponseDTO;
 import com.raccon.simplecrud.model.user.RegisterDTO;
 import com.raccon.simplecrud.model.user.User;
 import com.raccon.simplecrud.repository.userRepository.UserRepository;
+import com.raccon.simplecrud.services.TokenService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
