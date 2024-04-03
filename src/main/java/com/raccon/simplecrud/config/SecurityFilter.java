@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.Config;
+package com.raccon.simplecrud.config;
 
 import java.io.IOException;
 
