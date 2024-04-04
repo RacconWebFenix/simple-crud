@@ -1,5 +1,7 @@
 package com.raccon.simplecrud.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import com.raccon.simplecrud.services.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("api/auth")
@@ -72,6 +76,16 @@ public class AuthenticationController {
 
             repository.save(newUser);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        try {
+
+            return ResponseEntity.ok(repository.findAll());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

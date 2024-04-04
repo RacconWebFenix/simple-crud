@@ -2,7 +2,7 @@ package com.raccon.simplecrud.model.person;
 
 import java.util.List;
 
-import com.raccon.simplecrud.model.addresses.Addresses;
+import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.phone.PhoneNumber;
 
 import jakarta.persistence.CascadeType;
@@ -41,7 +41,7 @@ public class Person {
     private String email;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private List<Addresses> addresses;
+    private List<Address> address;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<PhoneNumber> phoneNumbers;
