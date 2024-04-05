@@ -37,7 +37,7 @@ public class AddressAnnotations {
         @RequestBody(description = "Dados do endereço a ser criado", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDTO.class), examples = @ExampleObject(value = "{\n"
                         +
                         "  \"personId\": 1,\n" +
-                        "  \"street\": \"Rua ABC\",\n" +
+                        "  \"addressId\": \"Rua ABC\",\n" +
                         "  \"city\": \"Cidade XYZ\",\n" +
                         "  \"state\": \"Estado XYZ\",\n" +
                         "  \"postalCode\": \"12345-678\"\n" +

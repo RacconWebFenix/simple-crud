@@ -57,9 +57,5 @@ public class Person {
         inverseJoinColumns = @JoinColumn(name = "congregation_id"))
     private List<Congregation> congregations;
 
-    public Person(String name, String cpf) {
-        this.name = name;
-        this.cpf = cpf;
-    }
-
+    
 }
