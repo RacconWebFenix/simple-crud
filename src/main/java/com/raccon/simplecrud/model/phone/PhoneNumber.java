@@ -22,7 +22,7 @@ public class PhoneNumber {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "person_id", nullable = true)
     private Person person;
 
     private String phone;

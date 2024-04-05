@@ -1,5 +1,6 @@
 package com.raccon.simplecrud.dto;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class AddressDTO {
 
     @Schema(description = "ID do endereço")
@@ -29,5 +29,6 @@ public class AddressDTO {
     private String state;
 
     @Schema(description = "Código postal")
-    private String postalCode;
+    private String postalCode; 
 }
+
