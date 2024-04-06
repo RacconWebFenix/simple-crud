@@ -1,5 +1,6 @@
 package com.raccon.simplecrud.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raccon.simplecrud.dto.AddressDTO;
 import com.raccon.simplecrud.dto.CongregationDTO;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.congregation.Congregation;
@@ -52,17 +54,35 @@ public class CongregationController {
 
     @CreateCongregationRequestBody
     @PostMapping("/congregations")
-    public ResponseEntity<Congregation> createCongregation(@RequestBody CongregationDTO congregationRequestDTO) {
+    public ResponseEntity<?> createCongregation(@RequestBody CongregationDTO congregationRequestDTO) {
         Congregation congregation = new Congregation();
         congregation.setName(congregationRequestDTO.getName());
 
-        Address address = addressService.getAddressById(congregationRequestDTO.getAddressId());
+        // Verificar e criar o endereço, se necessário
+        Address address = checkAndCreateAddress(congregationRequestDTO);
+        if (address == null) {
+            // Se não for possível verificar ou criar o endereço, retorne uma resposta de
+            // erro
+            return ResponseEntity.badRequest()
+                    .body("O ID do endereço ou os detalhes completos do endereço devem ser fornecidos.");
+        }
+
+        // Defina o endereço na congregação
         congregation.setAddress(address);
 
-        List members = congregationRequestDTO.getMemberIds();
-        congregation.setMembers(members);
+        // Obtenha os membros da congregação (simulação)
+        List<Long> memberIds = congregationRequestDTO.getMemberIds();
+        List<Person> members = getMembers(memberIds);
+        if (members == null) {
+            // Se não for possível obter os membros, retorne uma resposta de erro
+            return ResponseEntity.badRequest()
+                    .body("Não foi possível obter os membros associados à congregação.");
+        }
 
+        // Crie a congregação
         Congregation createdCongregation = congregationService.createCongregation(congregation);
+
+        // Retorne uma resposta de sucesso com a congregação criada
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCongregation);
     }
 
@@ -114,6 +134,43 @@ public class CongregationController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    private Address checkAndCreateAddress(CongregationDTO congregationRequestDTO) {
+        Long addressId = congregationRequestDTO.getAddressId();
+        Address address = null;
+
+        if (addressId != null) {
+            address = addressService.getAddressById(addressId);
+            if (address == null) {
+                // Se o endereço não for encontrado, retorne null
+                return null;
+            }
+        } else {
+            // Se os detalhes completos do endereço foram fornecidos
+            AddressDTO addressDTO = congregationRequestDTO.getAddressDetails();
+            if (addressDTO != null) {
+                // Converter AddressDTO para Address e salvar o novo endereço
+                address = addressService.convertToAddress(addressDTO);
+                address = addressService.createAddress(address);
+            } else {
+                // Se nenhum ID de endereço nem detalhes de endereço foram fornecidos, retorne
+                // null
+                return null;
+            }
+        }
+        return address;
+    }
+
+    private List<Person> getMembers(List<Long> memberIds) {
+        List<Person> members = new ArrayList<>();
+        for (Long memberId : memberIds) {
+            // Simule a criação de um objeto Person com base no ID do membro
+            Person member = new Person();
+            member.setId(memberId);
+            members.add(member);
+        }
+        return members;
     }
 
 }

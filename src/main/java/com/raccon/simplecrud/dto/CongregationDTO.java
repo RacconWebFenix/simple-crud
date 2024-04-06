@@ -19,8 +19,11 @@ public class CongregationDTO {
     @Schema(description = "Nome da Congregação")
     private String name;
 
-    @Schema(description = "Endereço da Congregação")
+    @Schema(description = "ID do endereço da Congregação")
     private Long addressId;
+
+    @Schema(description = "Detalhes do endereço da Congregação")
+    private AddressDTO addressDetails; // Alterado para AddressDTO
 
     @Schema(description = "IDs dos membros associados à Congregação")
     private List<Long> memberIds;

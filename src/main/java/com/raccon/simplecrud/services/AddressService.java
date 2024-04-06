@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.raccon.simplecrud.dto.AddressDTO;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.person.Person;
 import com.raccon.simplecrud.repository.AddressRepository;
@@ -26,14 +27,15 @@ public class AddressService {
     }
 
     public Address createAddress(Address address) {
-        Address newAddress = new Address();
-        address.setStreet(address.getStreet());
-        address.setCity(address.getCity());
-        address.setState(address.getState());
-        address.setPostalCode(address.getPostalCode());
 
-        // Verifique se há uma pessoa associada antes de definir
-        // a pessoa no endereço
+
+        Address newAddress = new Address();
+
+        newAddress.setStreet(address.getStreet());
+        newAddress.setCity(address.getCity());
+        newAddress.setState(address.getState());
+        newAddress.setPostalCode(address.getPostalCode());
+
         if (address.getPerson() != null) {
             Person person = personRepository.findById(address.getPerson().getId()).orElse(null);
             address.setPerson(person);
@@ -69,5 +71,18 @@ public class AddressService {
             return false; // Or throw AddressNotFoundException
         }
     }
+
+    
+
+    public Address convertToAddress(AddressDTO addressDTO) {
+        Address address = new Address();
+        address.setStreet(addressDTO.getStreet());
+        address.setCity(addressDTO.getCity());
+        address.setState(addressDTO.getState());
+        address.setPostalCode(addressDTO.getPostalCode());
+        return address;
+    }
+
+
 
 }
