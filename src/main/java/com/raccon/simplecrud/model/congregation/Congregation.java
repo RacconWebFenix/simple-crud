@@ -2,6 +2,8 @@ package com.raccon.simplecrud.model.congregation;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.person.Person;
 
@@ -39,6 +41,7 @@ public class Congregation {
     private Address address;
 
     @ManyToMany(mappedBy = "congregations")
+    @JsonBackReference
     private List<Person> members;
 
 }

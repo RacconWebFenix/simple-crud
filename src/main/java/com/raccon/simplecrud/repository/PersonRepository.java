@@ -1,4 +1,4 @@
-package com.raccon.simplecrud.repository.personRepository;
+package com.raccon.simplecrud.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

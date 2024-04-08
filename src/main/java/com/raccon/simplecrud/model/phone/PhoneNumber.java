@@ -1,5 +1,6 @@
 package com.raccon.simplecrud.model.phone;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.raccon.simplecrud.model.person.Person;
 
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class PhoneNumber {
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = true)
+    @JsonBackReference // Indica que esta é a parte inversa da associação
     private Person person;
 
     private String phone;

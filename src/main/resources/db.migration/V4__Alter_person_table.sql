@@ -1,0 +1,3 @@
+ALTER TABLE person
+ADD COLUMN instrument VARCHAR(255),
+ADD COLUMN person_function VARCHAR(255);

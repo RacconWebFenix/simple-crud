@@ -11,7 +11,7 @@ import com.raccon.simplecrud.dto.AddressDTO;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.person.Person;
 import com.raccon.simplecrud.repository.AddressRepository;
-import com.raccon.simplecrud.repository.personRepository.PersonRepository;
+import com.raccon.simplecrud.repository.PersonRepository;
 
 @Service
 public class AddressService {

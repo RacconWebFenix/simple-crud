@@ -1,5 +1,6 @@
 package com.raccon.simplecrud.model.addresses;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.raccon.simplecrud.model.person.Person;
 
 import jakarta.persistence.Column;
@@ -26,6 +27,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = true)
+    @JsonBackReference
     private Person person;
 
     private String street;

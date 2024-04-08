@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.raccon.simplecrud.model.person.Person;
 import com.raccon.simplecrud.model.phone.PhoneNumber;
+import com.raccon.simplecrud.repository.PersonRepository;
 import com.raccon.simplecrud.repository.PhoneRepository;
-import com.raccon.simplecrud.repository.personRepository.PersonRepository;
 
 @Service
 public class PhoneNumberService {

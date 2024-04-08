@@ -1,7 +1,11 @@
 package com.raccon.simplecrud.model.person;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.congregation.Congregation;
 import com.raccon.simplecrud.model.phone.PhoneNumber;
@@ -39,23 +43,31 @@ public class Person {
     @Column(unique = true)
     private String cpf;
 
-    private String birthDate;
+    @Column
+    private Date birthDate;
 
     @Column(unique = true)
     private String email;
 
+    // este é um enum person_function
+    @Column(name = "person_function")
+    private PersonFunction personFunction;
+
+    // este é um enum instrument
+    @Column
+    private PersonInstrument instrument;
+
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<Address> address;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<PhoneNumber> phoneNumbers;
 
     @ManyToMany
-    @JoinTable(
-        name = "person_congregation", 
-        joinColumns = @JoinColumn(name = "person_id"), 
-        inverseJoinColumns = @JoinColumn(name = "congregation_id"))
+    @JoinTable(name = "person_congregation", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "congregation_id"))
+    // @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<Congregation> congregations;
 
-    
 }
