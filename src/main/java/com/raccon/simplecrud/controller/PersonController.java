@@ -1,5 +1,6 @@
 package com.raccon.simplecrud.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raccon.simplecrud.dto.AddressDTO;
+import com.raccon.simplecrud.dto.CongregationDTO;
+import com.raccon.simplecrud.dto.PersonDTO;
+import com.raccon.simplecrud.dto.PhoneDTO;
+import com.raccon.simplecrud.model.addresses.Address;
+import com.raccon.simplecrud.model.congregation.Congregation;
 import com.raccon.simplecrud.model.person.Person;
+import com.raccon.simplecrud.model.person.PersonFunction;
+import com.raccon.simplecrud.model.person.PersonInstrument;
+import com.raccon.simplecrud.model.phone.PhoneNumber;
 import com.raccon.simplecrud.services.PersonService;
 import com.raccon.simplecrud.utils.SwaggerAnotations.PersonAnnotations.CreatePersonRequestBody;
 
@@ -51,7 +61,7 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonDTO updatedPerson) {
         Person person = personService.updatePerson(id, updatedPerson);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
@@ -61,4 +71,6 @@ public class PersonController {
         personService.deletePerson(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+     
 }

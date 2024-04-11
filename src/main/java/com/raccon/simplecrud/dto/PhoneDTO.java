@@ -19,4 +19,9 @@ public class PhoneDTO {
     private Long personId;
     @Schema(description = "Número")
     private String phone;
+
+    // Método para obter o ID do telefone
+    public Long getId() {
+        return id;
+    }
 }

@@ -3,8 +3,6 @@ package com.raccon.simplecrud.model.person;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.raccon.simplecrud.model.addresses.Address;
 import com.raccon.simplecrud.model.congregation.Congregation;
@@ -57,11 +55,11 @@ public class Person {
     @Column
     private PersonInstrument instrument;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<Address> address;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<PhoneNumber> phoneNumbers;
 
@@ -69,5 +67,28 @@ public class Person {
     @JoinTable(name = "person_congregation", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "congregation_id"))
     // @JsonManagedReference // Indica que esta é a parte gerenciada da associação
     private List<Congregation> congregations;
+
+    // Métodos auxiliares dentro da classe Person
+    public void updateFields(Person updatedPerson) {
+        // Update only the fields that are not null in updatedPersonDTO
+        if (updatedPerson.getName() != null) {
+            this.setName(updatedPerson.getName());
+        }
+        if (updatedPerson.getCpf() != null) {
+            this.setCpf(updatedPerson.getCpf());
+        }
+        if (updatedPerson.getBirthDate() != null) {
+            this.setBirthDate(updatedPerson.getBirthDate());
+        }
+        if (updatedPerson.getEmail() != null) {
+            this.setEmail(updatedPerson.getEmail());
+        }
+        if (updatedPerson.getInstrument() != null) {
+            this.setInstrument(updatedPerson.getInstrument());
+        }
+        if (updatedPerson.getPersonFunction() != null) {
+            this.setPersonFunction(updatedPerson.getPersonFunction());
+        }
+    }
 
 }
