@@ -23,7 +23,7 @@ public class CongregationDTO {
     private Long addressId;
 
     @Schema(description = "Detalhes do endereço da Congregação")
-    private AddressDTO addressDetails; // Alterado para AddressDTO
+    private AddressDTO address; // Alterado para AddressDTO
 
     @Schema(description = "IDs dos membros associados à Congregação")
     private List<Long> memberIds;

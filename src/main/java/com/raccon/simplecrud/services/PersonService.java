@@ -17,18 +17,27 @@ import com.raccon.simplecrud.model.person.Person;
 import com.raccon.simplecrud.model.person.PersonFunction;
 import com.raccon.simplecrud.model.person.PersonInstrument;
 import com.raccon.simplecrud.model.phone.PhoneNumber;
+import com.raccon.simplecrud.repository.AddressRepository;
+import com.raccon.simplecrud.repository.CongregationRepository;
 import com.raccon.simplecrud.repository.PersonRepository;
+import com.raccon.simplecrud.repository.PhoneRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class PersonService {
-    private final PersonRepository personRepository;
+    private PersonRepository personRepository;
+    private CongregationRepository congregationRepository;
+    private PhoneRepository phoneRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, CongregationRepository congregationRepository,
+            PhoneRepository phoneRepository, AddressRepository addressRepository) {
         this.personRepository = personRepository;
-
+        this.congregationRepository = congregationRepository;
+        this.phoneRepository = phoneRepository;
+        this.addressRepository = addressRepository;
     }
 
     public List<Person> getAllPersons() {
@@ -39,6 +48,10 @@ public class PersonService {
         return personRepository.findById(id);
     }
 
+    public void deletePerson(Long id) {
+        personRepository.deleteById(id);
+    }
+
     public Person createPerson(Person person) {
         // Salvar congregações primeiro
 
@@ -46,16 +59,23 @@ public class PersonService {
         for (Congregation congregation : person.getCongregations()) {
             savedCongregations.add(congregationRepository.save(congregation));
         }
+
         person.setCongregations(savedCongregations);
 
         Person savedPerson = personRepository.save(person);
 
-        // Associa o ID da pessoa aos números de telefone
         List<PhoneNumber> phoneNumbers = person.getPhoneNumbers();
         for (PhoneNumber phoneNumber : phoneNumbers) {
             phoneNumber.setPerson(savedPerson);
             phoneRepository.save(phoneNumber);
         }
+
+        List<Address> savedAddresses = new ArrayList<>();
+        person.getAddress().forEach(add -> {
+            savedAddresses.add(addressRepository.save(add));
+        });
+
+        person.setAddress(savedAddresses);
 
         return savedPerson;
     }
@@ -77,10 +97,6 @@ public class PersonService {
         personRepository.save(person);
 
         return person;
-    }
-
-    public void deletePerson(Long id) {
-        personRepository.deleteById(id);
     }
 
     private Person convertToEntity(PersonDTO personDTO) {
@@ -129,17 +145,6 @@ public class PersonService {
                 addresses.add(address);
             }
             person.setAddress(addresses);
-        }
-
-        // Convert CongregationDTO list to Congregation list
-        if (personDTO.getCongregations() != null) {
-            List<Congregation> congregations = new ArrayList<>();
-            for (CongregationDTO congregationDTO : personDTO.getCongregations()) {
-                Congregation congregation = new Congregation();
-                congregation.setName(congregationDTO.getName());
-                congregations.add(congregation);
-            }
-            person.setCongregations(congregations);
         }
 
         return person;
@@ -191,8 +196,6 @@ public class PersonService {
                 } else if (updatedAddress.getPostalCode() != null) {
                     Address newAddress = createNewAddress(updatedAddress, person);
                     addressesCopy.add(newAddress);
-                    System.out.println("veio o novo? " + newAddress);
-
                 }
             });
         }

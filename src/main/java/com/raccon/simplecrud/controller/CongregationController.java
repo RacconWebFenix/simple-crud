@@ -148,7 +148,7 @@ public class CongregationController {
             }
         } else {
             // Se os detalhes completos do endereço foram fornecidos
-            AddressDTO addressDTO = congregationRequestDTO.getAddressDetails();
+            AddressDTO addressDTO = congregationRequestDTO.getAddress();
             if (addressDTO != null) {
                 // Converter AddressDTO para Address e salvar o novo endereço
                 address = addressService.convertToAddress(addressDTO);

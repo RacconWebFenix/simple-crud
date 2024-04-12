@@ -44,4 +44,8 @@ public class Congregation {
     @JsonBackReference
     private List<Person> members;
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
 }

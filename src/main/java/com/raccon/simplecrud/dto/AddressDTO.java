@@ -1,5 +1,7 @@
 package com.raccon.simplecrud.dto;
 
+import com.raccon.simplecrud.model.addresses.Address;
+
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -30,5 +32,16 @@ public class AddressDTO {
 
     @Schema(description = "Código postal")
     private String postalCode; 
+
+    public Address toAddress() {
+        Address address = new Address();
+        address.setId(this.getId());
+        address.setCity(this.getCity());
+        address.setPostalCode(this.getPostalCode());
+        address.setState(this.getState());
+        address.setStreet(this.getStreet());
+        return address;
+    }
+    
 }
 
